@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Parcial 2</title>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body>
+        <h1>Julimarketing</h1>
+        <h2>Pregunta actual</h2>
+        <div id="now">
+
+        </div>
+        <br>
+        <p>Escriba aquí la pregunta actual del focus group</p>
+        <div id="question">
+            <input id="buscador" placeholder="    Pregunta nueva">
+            <button id="lupa">OK</button>
+        </div>
+        <br>
+        <h2>Histórico</h2>
+        <div id="history">
+
+        </div>
+    </body>
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script>
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyBz84nOabSVqthUexH5joweFPMBvERyZG0",
+    authDomain: "parcial2-66671.firebaseapp.com",
+    databaseURL: "https://parcial2-66671.firebaseio.com",
+    projectId: "parcial2-66671",
+    storageBucket: "parcial2-66671.appspot.com",
+    messagingSenderId: "971960058641",
+    appId: "1:971960058641:web:a75f060dd1cabe644442b0",
+    measurementId: "G-PB7D20P499"
+  };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
