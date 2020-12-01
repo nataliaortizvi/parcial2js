@@ -6,16 +6,22 @@
     </head>
     <body>
         <h1>Julimarketing</h1>
+        <br>
         <h2>Pregunta actual</h2>
+        <button id='borrarBt'>Eliminar pregunta actual</button>
+        <br>
         <div id="now">
-
+           
         </div>
+        <br>
+        <div id="promedio"></div>
         <br>
         <p>Escriba aquí la pregunta actual del focus group</p>
         <div id="question">
-            <input id="buscador" placeholder="    Pregunta nueva">
+            <input id="buscador" placeholder="Pregunta nueva">
             <button id="lupa">OK</button>
         </div>
+        <br>
         <br>
         <h2>Histórico</h2>
         <div id="history">
@@ -39,3 +45,6 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
+
+<script src="components/PreguntaHistoria.js"></script>
+<script src="js/index.js"></script>
