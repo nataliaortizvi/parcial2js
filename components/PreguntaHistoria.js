@@ -22,7 +22,7 @@ class PreguntaHistoria{
         let prom = document.createElement('p');
         prom.className = 'promedio';
         prom.innerHTML = (
-            '0'
+            this.lapregunta.promedio
         );
 
         eli.addEventListener('click', ()=>{

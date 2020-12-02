@@ -6,7 +6,7 @@ const lupa = document.getElementById('lupa');
 const now = document.getElementById('now');
 const histor = document.getElementById('history');
 const borrarbt = document.getElementById('borrarBt');
-const promedio = document.getElementById('promedio');
+const promedioA = document.getElementById('promedio');
 
 var yaPregunta;
 var yaPromedio;
@@ -17,6 +17,10 @@ var enable = true;
 ask = () => {
 
     let p = buscador.value;
+
+    if(yaPromedio == null){
+        yaPromedio = 0;
+    }
 
     //si no escriba ninguna pregunta
     if(buscador.value == ''){
@@ -32,10 +36,11 @@ ask = () => {
         let lapreguntaH = {
             id: referenciaH.key,
             pregunta: yaPregunta,
-            //promedio: yaPromedio,
+            promedio: yaPromedio,
         }
 
         database.ref('preguntasDo/preg').set(null);
+        database.ref('preguntasDo/prom').set(null);
         referenciaH.set(lapreguntaH);
 
     }
@@ -62,31 +67,29 @@ del = () => {
 
     if(enable) {
 
+        if(yaPromedio == null){
+            yaPromedio = 0;
+        }
+
         //value de las variables
         let referenciaH = database.ref('preguntasDid/').push();
+        let referencia = database.ref('preguntasDo/preg').push();
+        let referenciaProm = database.ref('preguntasDo/prom').push();
 
         //objeto con la pregunta
         let lapreguntaH = {
             id: referenciaH.key,
             pregunta: yaPregunta,
+            promedio: yaPromedio,
         }
 
-        database.ref('preguntasDo/preg').set(null);
         referenciaH.set(lapreguntaH);
+        database.ref('preguntasDo/preg').set(null);
         ya = false;
 
-         //value de las variables
-        let referencia = database.ref('preguntasDo/preg').push();
-        let referenciaProm = database.ref('preguntasDo/prom').push();
- 
-        //objeto sin pregunta
-        //let lapregunta = {
-         //pregunta: 'nopregunta'
-        //}
-
         enable = false;
-        //referencia.set(lapregunta);
         now.innerHTML = '';
+        promedioA.innerHTML = '';
         referencia.set(null);
         referenciaProm.set(null);
     }
@@ -103,18 +106,21 @@ database.ref('preguntasDo/prom').on('value', function(data){
 
     data.forEach(
         prome => {
-            let val = prome.val().prome;
+            let val = prome.val();
+            console.log(val);
             suma += val;
             cont += 1;
         }
     );
 
     if(cont == 0){
-        promedio.innerHTML = '';
+        promedioA.innerHTML = '';
     }else{
         let elpromedio = suma / cont;
-        promedio.innerHTML = elpromedio;
+        promedioA.innerHTML = elpromedio;
+        console.log('p'+elpromedio);
         yaPromedio = elpromedio;
+        console.log('ya'+yaPromedio);
     }
 });
 
