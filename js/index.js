@@ -18,10 +18,6 @@ ask = () => {
 
     let p = buscador.value;
 
-    if(yaPromedio == null){
-        yaPromedio = 0;
-    }
-
     //si no escriba ninguna pregunta
     if(buscador.value == ''){
         alert('Escriba una pregunta');
@@ -29,6 +25,10 @@ ask = () => {
     }
 
     if(ya) {
+        if(yaPromedio == null){
+            yaPromedio = 0;
+        }
+        
         //value de las variables
         let referenciaH = database.ref('preguntasDid/').push();
 
@@ -73,8 +73,6 @@ del = () => {
 
         //value de las variables
         let referenciaH = database.ref('preguntasDid/').push();
-        let referencia = database.ref('preguntasDo/preg').push();
-        let referenciaProm = database.ref('preguntasDo/prom').push();
 
         //objeto con la pregunta
         let lapreguntaH = {
@@ -90,9 +88,14 @@ del = () => {
         enable = false;
         now.innerHTML = '';
         promedioA.innerHTML = '';
-        referencia.set(null);
-        referenciaProm.set(null);
+
+        database.ref('preguntasDo/preg').set(null);
+        database.ref('preguntasDo/prom').set(null);
+
     }
+
+    database.ref('preguntasDo/preg').set(null);
+    database.ref('preguntasDo/prom').set(null);
 }
 
 //ACCION DE ELIMINAR
@@ -100,14 +103,14 @@ borrarbt.addEventListener('click', del);
 
 //LECTURA PROMEDIOS QUE VAN LLEGANDO
 database.ref('preguntasDo/prom').on('value', function(data){
-  
+
     let suma = 0;
     let cont = 0;
 
     data.forEach(
         prome => {
-            let val = prome.val();
-            console.log(val);
+            let valor = prome.val();
+            let val = valor.puntaje;
             suma += val;
             cont += 1;
         }
@@ -118,9 +121,7 @@ database.ref('preguntasDo/prom').on('value', function(data){
     }else{
         let elpromedio = suma / cont;
         promedioA.innerHTML = elpromedio;
-        console.log('p'+elpromedio);
-        yaPromedio = elpromedio;
-        console.log('ya'+yaPromedio);
+        yaPromedio = elpromedio.toFixed(1);
     }
 });
 
